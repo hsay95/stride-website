@@ -1,6 +1,6 @@
 # Stride Website
 
-Static single-page marketing and legal site for Stride.
+Static marketing and legal site for Stride.
 
 ## Local preview
 
@@ -14,7 +14,7 @@ Then open `http://localhost:4173`.
 
 This repo has no build step. Deploy the root directory as a static project.
 
-`/privacy`, `/terms`, and `/support` are rewritten to the single page and scroll to the matching legal/support section.
+`privacy.html`, `terms.html`, and `support.html` are standalone pages for App Store review. Vercel `cleanUrls` also serves them as `/privacy`, `/terms`, and `/support`.
 
 ## Before launch
 

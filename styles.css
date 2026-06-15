@@ -310,7 +310,8 @@ a {
 
 .section-heading h2,
 .privacy-promise h2,
-.legal-header h2 {
+.legal-header h2,
+.standalone-main h1 {
   margin: 0;
   color: var(--deep-sage);
   font-size: clamp(2rem, 4vw, 4.4rem);
@@ -441,7 +442,14 @@ a {
   font-size: 1.15rem;
 }
 
-.legal-copy h3:first-of-type {
+.legal-copy h2 {
+  margin: 30px 0 8px;
+  color: var(--deep-sage);
+  font-size: 1.15rem;
+}
+
+.legal-copy h3:first-of-type,
+.legal-copy h2:first-of-type {
   margin-top: 0;
 }
 
@@ -453,6 +461,18 @@ a {
 
 .support-section {
   background: var(--cream);
+}
+
+.standalone-main {
+  min-height: 70svh;
+}
+
+.standalone-legal {
+  border-bottom: 0;
+}
+
+.standalone-support {
+  min-height: 70svh;
 }
 
 .faq-list {
