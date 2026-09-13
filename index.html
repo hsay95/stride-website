@@ -14,139 +14,430 @@
       content="Stride turns walking into earned app time while keeping your Health and Screen Time data on your iPhone."
     >
     <meta property="og:type" content="website">
-    <meta name="theme-color" content="#2E6B49">
+    <meta name="theme-color" content="#12382B">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,900&family=Caveat:wght@600;700&display=swap"
       rel="stylesheet"
     >
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
+    <svg width="0" height="0" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="ring-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#a5e3c3"></stop>
+          <stop offset="1" stop-color="#3e8e68"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
+
     <header class="site-header" aria-label="Primary navigation">
       <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true">S</span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 120 84" class="sneaker-svg">
+            <path d="M12 58 C12 40 22 28 36 26 c8-1 13 2 19 5 l32 12 c9 3 13 7 13 11 l0 3 c0 3-2 5-6 5 L16 62 c-3 0-4-2-4-4z" fill="#7cd3a2"></path>
+            <path d="M36 26 c6-1 13 2 19 5 l32 12 c9 3 13 7 13 11 l0 3 -22 0 -42-24 z" fill="#5dbd8d"></path>
+            <path d="M8 62 h98 c3 0 5 2 5 5 0 5-4 8-9 8 H17 c-5 0-9-4-9-9 0-2 0-4 0-4z" fill="#e9f6ee"></path>
+            <path d="M40 34 l10 4 M46 30 l10 4 M52 26 l10 4" stroke="#fcf8f0" stroke-width="3" stroke-linecap="round"></path>
+            <g transform="translate(74 46)">
+              <path d="M4 10 v-3 a6 6 0 0 1 12 0 v3" fill="none" stroke="#e0a83c" stroke-width="3"></path>
+              <rect x="0" y="9" width="16" height="13" rx="3" fill="#ffc759"></rect>
+            </g>
+          </svg>
+        </span>
         <span>Stride</span>
       </a>
       <nav class="nav-links" aria-label="Site">
         <a href="/#how-it-works">How it works</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/support.html">Support</a>
+        <a href="/#privacy">Privacy</a>
+        <a href="/#pricing">Pricing</a>
       </nav>
+      <!-- TODO: add App Store URL when the app is live -->
+      <span class="header-cta" aria-disabled="true">
+        <svg class="apple-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 1.43c0 1.14-.46 2.2-1.21 3.01-.8.88-2.1 1.56-3.17 1.47-.13-1.1.42-2.27 1.16-3.06.83-.9 2.22-1.54 3.22-1.42zM20.94 17.1c-.57 1.3-.84 1.88-1.57 3.03-1.02 1.6-2.46 3.6-4.24 3.6-1.58.02-1.99-1.04-4.14-1.03-2.14.01-2.59 1.05-4.17 1.03-1.78-.02-3.14-1.82-4.16-3.42C.34 15.9-.14 10.6 1.65 7.8c1.28-2 3.3-3.17 5.2-3.17 1.94 0 3.16 1.07 4.76 1.07 1.56 0 2.51-1.07 4.75-1.07 1.7 0 3.49.92 4.77 2.52-4.19 2.3-3.51 8.28-.19 9.95z"/></svg>
+        Download on the App Store
+      </span>
     </header>
 
     <main>
       <section class="hero" id="home">
         <div class="hero-copy">
-          <p class="eyebrow">Stride - App Lock &amp; Focus</p>
-          <h1>Walk to earn your screen time.</h1>
+          <p class="pill">App time, earned by walking</p>
+          <h1>Walk more.<br><span class="accent">Scroll less.</span></h1>
           <p class="hero-subhead">
-            Stride locks the apps that distract you until you've walked for it.
-            500 steps = 15 minutes. Your body, your reward.
+            Every 500 steps earns 15 minutes for the apps that distract you.
+            Use what you need. Save the rest.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#how-it-works">See how it works</a>
-            <a class="button secondary" href="#privacy">See privacy promise</a>
+            <span class="btn-appstore" aria-disabled="true">
+              <svg class="apple-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 1.43c0 1.14-.46 2.2-1.21 3.01-.8.88-2.1 1.56-3.17 1.47-.13-1.1.42-2.27 1.16-3.06.83-.88-2.22-1.54-3.22-1.42zM20.94 17.1c-.57 1.3-.84 1.88-1.57 3.03-1.02 1.6-2.46 3.6-4.24 3.6-1.58.02-1.99-1.04-4.14-1.03-2.14.01-2.59 1.05-4.17 1.03-1.78-.02-3.14-1.82-4.16-3.42C.34 15.9-.14 10.6 1.65 7.8c1.28-2 3.3-3.17 5.2-3.17 1.94 0 3.16 1.07 4.76 1.07 1.56 0 2.51-1.07 4.75-1.07 1.7 0 3.49.92 4.77 2.52-4.19 2.3-3.51 8.28-.19 9.95z"/></svg>
+              Download on the App Store
+            </span>
+            <a class="see-how" href="#how-it-works">
+              <span class="play-chip" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z"/></svg>
+              </span>
+              See how it works
+            </a>
+          </div>
+          <div class="hero-sneaker">
+            <div class="sneaker-tile" aria-hidden="true">
+              <svg viewBox="0 0 120 84" class="sneaker-svg">
+                <path d="M12 58 C12 40 22 28 36 26 c6-1 13 2 19 5 l32 12 c9 3 13 7 13 11 l0 3 c0 3-2 5-6 5 L16 62 c-3 0-4-2-4-4z" fill="#7cd3a2"></path>
+                <path d="M36 26 c6-1 13 2 19 5 l32 12 c9 3 13 7 13 11 l0 3 -22 0 -42-24z" fill="#5dbd8d"></path>
+                <path d="M8 62 h98 c3 0 5 2 5 5 0 5-4 8-9 8 H17 c-5 0-9-4-9-9 0-2 0-4 0-4z" fill="#e9f6ee"></path>
+                <path d="M40 34 l10 4 M46 30 l10 4 M52 26 l10 4" stroke="#fcf8f0" stroke-width="4" stroke-linecap="round"></path>
+                <path d="M18 44 c6-2 10-8 12-14" stroke="#5dbd8d" stroke-width="3" fill="none" stroke-linecap="round"></path>
+                <g transform="translate(72 44)">
+                  <path d="M4 11 v-4 a6 6 0 0 1 12 0 v4" fill="none" stroke="#e0a83c" stroke-width="3.5"></path>
+                  <rect x="0" y="10" width="18" height="14" rx="4" fill="#ffc759"></rect>
+                  <circle cx="9" cy="16" r="2.2" fill="#a9761b"></circle>
+                </g>
+              </svg>
+            </div>
+            <p class="hand-note tilt-l">A more<br>intentional<br>you.</p>
           </div>
         </div>
 
-        <div class="product-visual" aria-label="Stride app preview">
-          <div class="phone-shell">
-            <div class="phone-top">
-              <span></span>
-              <span></span>
-            </div>
-            <div class="app-card balance-card">
-              <p>Weekly bank</p>
-              <strong>45 min</strong>
-              <span>earned from 1,500 steps</span>
-            </div>
-            <div class="walk-meter" aria-hidden="true">
-              <div></div>
-            </div>
-            <div class="app-card unlock-card">
-              <svg viewBox="0 0 24 24" role="img" aria-label="Lock icon">
-                <path d="M7 10V8a5 5 0 0 1 10 0v2h1.2c.7 0 1.3.6 1.3 1.3v8.4c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3v-8.4c0-.7.6-1.3 1.3-1.3H7Zm2.2 0h5.6V8a2.8 2.8 0 1 0-5.6 0v2Z"/>
-              </svg>
-              <div>
-                <strong>3 apps locked</strong>
-                <span>Open one when you spend earned minutes.</span>
+        <div class="hero-visual">
+          <div class="phone" role="img" aria-label="Stride app home screen showing 400 steps today and a bank of 4h 45m of app time">
+            <div class="screen">
+              <div class="sb">
+                <span class="sb-time">9:41</span>
+                <span class="sb-island" aria-hidden="true"></span>
+                <span class="sb-icons" aria-hidden="true">▪▪▪</span>
+              </div>
+              <div class="greet">
+                <div>
+                  <p class="greet-hi">Good afternoon</p>
+                  <p class="greet-name">Aaron <span class="greet-edit" aria-hidden="true">✎</span></p>
+                  <p class="greet-sub">Today's walk is tomorrow's energy.</p>
+                </div>
+                <span class="greet-chip" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><path d="M9.5 22l1.8-6-1.8-2.6.9-4.6 2.8 2.8 2.8 1 .9 1.8-1.8.5-2.3-.9-1.2 3.5L11.6 22z"/></svg>
+                </span>
+              </div>
+              <div class="ring-card">
+                <svg class="ring" viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="#e8f2ec" stroke-width="11"></circle>
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="url(#ring-grad)" stroke-width="10" stroke-linecap="round" stroke-dasharray="238 327" transform="rotate(-90 60 60)"></circle>
+                  <text x="60" y="60" class="ring-num">400</text>
+                  <text x="60" y="76" class="ring-sub">steps today</text>
+                </svg>
+                <p class="ring-pill">↑ 100 steps to earn 15 min</p>
+              </div>
+              <div class="avail-card">
+                <span class="avail-dot" aria-hidden="true"></span>
+                <div class="avail-main">
+                  <p class="avail-label">Available</p>
+                  <p class="avail-value">4h 45m <span>of app time saved</span></p>
+                </div>
+                <div class="avail-side">
+                  <p class="avail-steps">9,737</p>
+                  <p class="avail-steps-label">steps this week</p>
+                </div>
+              </div>
+              <div class="unlock">
+                <div class="unlock-head">
+                  <p class="unlock-title">App Unlock</p>
+                  <span class="chip chip-mint">1 app locked</span>
+                </div>
+                <div class="unlock-card">
+                  <span class="unlock-ic" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2h1.2c.7 0 1.3.6 1.3 1.3v8.4c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3v-8.4c0-.7.6-1.3 1.3-1.3H7Zm2.2 0h5.6V8a2.8 2.8 0 1 0-5.6 0v2Z"/></svg>
+                  </span>
+                  <div>
+                    <p class="unlock-ready">Ready to unlock</p>
+                    <p class="unlock-sub">1 app • 15 min of app use</p>
+                  </div>
+                </div>
+                <span class="unlock-btn" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M9.5 22l1.8-6-1.8-2.6.9-4.6 2.9 2.9 2.8 1 .9 2-1.8.5-2.3-.9-1.1 3.4L12.4 22z"/></svg>
+                  Start 15 min app pass
+                </span>
+              </div>
+              <div class="tabbar" aria-hidden="true">
+                <span class="tab tab-on">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M9.5 22l1.8-6-1.8-2.6.9-4.6 2.9 2.9 2.8 1 .9 2-1.8.5-2.3-.9-1.1 3.4L11.6 22z"/></svg>
+                  Today
+                </span>
+                <span class="tab">
+                  <svg viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2h1.2c.7 0 1.3.6 1.3 1.3v8.4c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3v-8.4c0-.7.6-1.3 1.3-1.3H7Zm2.2 0h5.6V8a2.8 2.8 0 1 0-5.6 0v2Z"/></svg>
+                  Apps
+                </span>
+                <span class="tab">
+                  <svg viewBox="0 0 24 24"><path d="M5 12h3v7H5zM10.5 8h3v11h-3zM16 15h3v4h-3z"/></svg>
+                  Week
+                </span>
               </div>
             </div>
-            <div class="mini-grid" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
+          </div>
+          <p class="hand-note side tilt-r">Steps<br>create<br>freedom.</p>
+        </div>
+      </section>
+
+      <section class="section steps-band" id="how-it-works">
+        <h2 class="mech"><span class="mech-dark">500 steps</span> <span class="mech-eq">=</span> <span class="mech-green">15 minutes</span></h2>
+        <p class="mech-sub">Your walks build an app-time bank for the week.</p>
+        <div class="steps-grid">
+          <article class="step-col">
+            <div class="step-head">
+              <span class="step-num n1" aria-hidden="true">1</span>
+              <div>
+                <h3>Walk</h3>
+                <p>Turn your steps into app time.</p>
+              </div>
+            </div>
+            <div class="phone phone-sm" aria-hidden="true">
+              <div class="screen screen-dark">
+                <div class="sb sb-dark">
+                  <span class="sb-time">9:41</span>
+                  <span class="sb-island"></span>
+                  <span class="sb-icons">▪▪▪</span>
+                </div>
+                <div class="onb-glow">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M9.5 22l1.8-6-1.8-2.6.9-4.6 2.9 2.9 2.8 1 .9 2-1.8.5-2.3-.9-1.1 3.4L11.6 22z"/></svg>
+                </div>
+                <p class="onb-title">Stride</p>
+                <p class="onb-copy">Stride blocks distracting apps. Walk 500 steps to unlock them. Your steps buy back your time.</p>
+                <span class="onb-cta">Get Started</span>
+                <p class="onb-fine">2 minutes of setup. No account needed.</p>
+              </div>
+            </div>
+          </article>
+          <article class="step-col">
+            <div class="step-head">
+              <span class="step-num n2" aria-hidden="true">2</span>
+              <div>
+                <h3>Earn</h3>
+                <p>Every 500 steps earns 15 minutes.</p>
+              </div>
+            </div>
+            <div class="phone phone-sm" aria-hidden="true">
+              <div class="screen screen-light">
+                <div class="sb">
+                  <span class="sb-time">9:41</span>
+                  <span class="sb-island"></span>
+                  <span class="sb-icons">▪▪▪</span>
+                </div>
+                <div class="greet greet-sm">
+                  <div>
+                    <p class="greet-name">Aaron <span class="greet-edit">✎</span></p>
+                    <p class="greet-tag">Today's walk is tomorrow's energy.</p>
+                  </div>
+                  <span class="greet-chip">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><path d="M9.5 22l1.8-6-1.8-2.6.9-4.6 2.9 2.9 2.8 1 .9 2-1.8.5-2.3-.9-1.1 3.4L11.6 22z"/></svg>
+                  </span>
+                </div>
+                <div class="ring-card ring-card-sm">
+                  <svg class="ring" viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="#e8f2ec" stroke-width="11"></circle>
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="url(#ring-grad)" stroke-width="10" stroke-linecap="round" stroke-dasharray="238 327" transform="rotate(-90 60 60)"></circle>
+                    <text x="60" y="60" class="ring-num">400</text>
+                    <text x="60" y="76" class="ring-sub">steps today</text>
+                  </svg>
+                  <p class="ring-pill ring-pill-sm">↑ 100 steps to earn 15 min</p>
+                </div>
+                <div class="avail avail-sm">
+                  <span class="avail-dot"></span>
+                  <div class="avail-main">
+                    <p class="avail-label">Available</p>
+                    <p class="avail-value">4h 45m <span>of app time saved</span></p>
+                  </div>
+                  <div class="avail-right">
+                    <p class="avail-steps">9,737</p>
+                    <p class="avail-steps-label">steps this week</p>
+                  </div>
+                </div>
+                <div class="unlock unlock-sm">
+                  <div class="unlock-head">
+                    <p class="unlock-title">App Unlock</p>
+                    <span class="chip chip-mint">1 app locked</span>
+                  </div>
+                  <div class="unlock-card">
+                    <span class="unlock-ic">
+                      <svg viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2h1.2c.7 0 1.3.6 1.3 1.3v8.4c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3v-8.4c0-.7.6-1.3 1.3-1.3H7Zm2.2 0h5.6V8a2.8 2.8 0 1 0-5.6 0v2Z"/></svg>
+                    </span>
+                    <div>
+                      <p class="unlock-ready">Ready to unlock</p>
+                      <p class="unlock-sub">1 app • 15 min of app use</p>
+                    </div>
+                  </div>
+                  <span class="unlock-btn">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M9.5 22l1.8-6-1.8-2.6.9-4.6 2.9 2.9 2.8 1 .9 2-1.8.5-2.3-.9-1.1 3.4L12.4 22z"/></svg>
+                    Start 15 min app pass
+                  </span>
+                </div>
+                <div class="tabbar tabbar-sm" aria-hidden="true">
+                  <span class="tab tab-on">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M9.5 22l1.8-6-1.8-2.6.9-4.6 2.9 2.9 2.8 1 .9 2-1.8.5-2.3-.9-1.1 3.4L11.6 22z"/></svg>
+                    Today
+                  </span>
+                  <span class="tab">
+                    <svg viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2h1.2c.7 0 1.3.6 1.3 1.3v8.4c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3v-8.4c0-.7.6-1.3 1.3-1.3H7Zm2.2 0h5.6V8a2.8 2.8 0 1 0-5.6 0v2Z"/></svg>
+                    Apps
+                  </span>
+                  <span class="tab">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h3v7H5zM10.5 8h3v11h-3zM16 15h3v4h-3z"/></svg>
+                    Week
+                  </span>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="step-col">
+            <div class="step-head">
+              <span class="step-num n3" aria-hidden="true">3</span>
+              <div>
+                <h3>Unlock</h3>
+                <p>Use 15 minutes. Save the rest.</p>
+              </div>
+            </div>
+            <div class="phone phone-sm" aria-hidden="true">
+              <div class="screen screen-dark">
+                <div class="sb sb-dark">
+                  <span class="sb-time">9:41</span>
+                  <span class="sb-island"></span>
+                  <span class="sb-icons">▪▪▪</span>
+                </div>
+                <div class="shield-glyph" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M6 2h12c.6 0 1 .4 1 1 0 3.2-2.1 5.4-4.2 7 2.1 1.6 4.2 3.8 4.2 7 0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1 0-3.2 2.1-5.4 4.2-7C7.1 8.4 5 6.2 5 3c0-.6.4-1 1-1zm1.6 2c.3 2 1.7 3.5 3.3 4.7L12 9.6l1.1-.9C14.7 7.5 16.1 6 16.4 4H7.6zm.1 12c.5-1.7 1.8-2.9 3.3-4l1-.8 1 .8c1.5 1.1 2.8 2.3 3.3 4H7.7z"/></svg>
+                </div>
+                <p class="shield-title">Your walk saved you a pass</p>
+                <p class="shield-copy">You have 285 minutes saved. Take 15 now and let the rest keep napping.</p>
+                <span class="shield-cta">Unlock 15 min</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="lock-band" id="lock">
+        <div class="lock-copy">
+          <h2>Lock distractions.<br><span class="lock-green">Keep control.</span></h2>
+          <p>Choose the apps and categories that stay behind the shield.</p>
+        </div>
+        <div class="lock-visual">
+          <div class="phone phone-tilt" role="img" aria-label="Stride apps screen showing one locked app with a masked name">
+            <div class="screen">
+              <div class="sb">
+                <span class="sb-time">9:41</span>
+                <span class="sb-island"></span>
+                <span class="sb-icons">▪▪▪</span>
+              </div>
+              <p class="apps-title">Apps</p>
+              <div class="apps-card">
+                <span class="apps-ic apps-ic-shield" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5l8-3z"/></svg>
+                </span>
+                <div class="apps-card-main">
+                  <p class="apps-card-title">Lock what distracts you</p>
+                  <p class="apps-card-sub">Changes to your locked apps take effect immediately.</p>
+                </div>
+                <span class="chip chip-sun">Free</span>
+              </div>
+              <div class="apps-card">
+                <span class="apps-ic apps-ic-check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9.5 16.2 5.8 12.5l-1.6 1.6 5.3 5.3L20 8.6l-1.6-1.6z"/></svg>
+                </span>
+                <div class="apps-card-main">
+                  <p class="apps-card-title">Locked selection</p>
+                  <p class="apps-card-sub">1 selected. Names stay masked.</p>
+                </div>
+                <span class="chip chip-mint">Active</span>
+              </div>
+              <p class="apps-row-label">Apps (1)</p>
+              <div class="apps-row">
+                <span class="apps-app-ic" aria-hidden="true"></span>
+                <span class="apps-mask" aria-hidden="true"></span>
+                <span class="apps-row-text">Ne<span class="blur">tflix</span></span>
+              </div>
+              <span class="apps-cta">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1.2c.7 0 1.3.6 1.3 1.3v8.4c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3v-8.4c0-.7.6-1.3 1.3-1.3H7Zm2.2 0h5.6V8a2.8 2.8 0 1 0-5.6 0v2Z"/></svg>
+                Change locked app
+              </span>
+              <div class="apps-card apps-free">
+                <span class="apps-ic apps-ic-plan" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"></path></svg>
+                </span>
+                <div class="apps-card-main">
+                  <p class="apps-card-title">Free plan: 1 of 1 app selected</p>
+                  <p class="apps-card-sub">Upgrade for unlimited apps and categories.</p>
+                </div>
+                <span class="chip chip-sun">Upgrade</span>
+              </div>
             </div>
           </div>
+          <p class="hand-note hand-light tilt-r">Your<br>attention<br>on your<br>terms.</p>
         </div>
       </section>
 
-      <section class="section light-band" id="how-it-works">
+      <section class="privacy-strip">
+        <span class="privacy-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2h1.2c.7 0 1.3.6 1.3 1.3v8.4c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3v-8.4c0-.7.6-1.3 1.3-1.3H7Zm2.2 0h5.6V8a2.8 2.8 0 1 0-5.6 0v2Z"/></svg>
+        </span>
+        <div class="privacy-copy">
+          <h3>Private by design.</h3>
+          <p>
+            Your steps and Screen Time activity stay on your iPhone. No account required.
+            <a href="#privacy">Read the privacy policy →</a>
+          </p>
+        </div>
+        <p class="hand-note tilt-r">Your data<br>stays yours.</p>
+      </section>
+
+      <section class="section pricing-band" id="pricing">
         <div class="section-heading">
-          <p class="eyebrow">Walk - Earn - Unlock</p>
-          <h2>How Stride works</h2>
+          <p class="eyebrow">Pricing</p>
+          <h2>Free to start. Pro when you're ready.</h2>
         </div>
-        <div class="steps-grid">
-          <article class="step-card">
-            <span class="step-number">1</span>
-            <h3>Walk.</h3>
-            <p>Stride counts your steps through Apple Health.</p>
+        <div class="pricing-grid">
+          <article class="price-card">
+            <p class="plan-name">Free</p>
+            <p class="plan-price">$0</p>
+            <ul>
+              <li>Lock 1 app</li>
+              <li>Earn app time by walking</li>
+              <li>Weekly bank that resets Monday</li>
+            </ul>
           </article>
-          <article class="step-card">
-            <span class="step-number">2</span>
-            <h3>Earn.</h3>
-            <p>Every 500 steps unlocks 15 minutes of app time, banked for the whole week.</p>
-          </article>
-          <article class="step-card">
-            <span class="step-number">3</span>
-            <h3>Unlock.</h3>
-            <p>Open a locked app, spend your earned minutes, and Stride re-locks when they're used up.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section proof-section" id="why-it-works">
-        <div class="section-heading">
-          <p class="eyebrow">Honest motivation</p>
-          <h2>Why it works</h2>
-        </div>
-        <div class="proof-grid">
-          <article>
-            <strong>4h 37m</strong>
-            <p>The average person spends around 4h 37m a day on their phone.</p>
-            <cite>data.ai, State of Mobile 2023</cite>
-          </article>
-          <article>
-            <strong>7,000+</strong>
-            <p>Walking 7,000+ steps a day is linked to 50-70% lower mortality risk.</p>
-            <cite>Paluch et al., JAMA Network Open, 2021</cite>
-          </article>
-          <article>
-            <strong>60%</strong>
-            <p>A short walk can boost creative output by roughly 60%.</p>
-            <cite>Oppezzo &amp; Schwartz, Stanford, 2014</cite>
-          </article>
-          <article>
-            <strong>23 min</strong>
-            <p>It takes about 23 minutes to refocus after a distraction.</p>
-            <cite>Gloria Mark, UC Irvine</cite>
+          <article class="plan-card plan-pro">
+            <p class="plan-name">Stride Pro</p>
+            <p class="plan-tag">Unlimited apps and categories</p>
+            <ul class="plan-prices">
+              <li><strong>$9.99</strong> / month</li>
+              <li><strong>$79.99</strong> / year</li>
+              <li><strong>$99.99</strong> lifetime</li>
+            </ul>
+            <p class="plan-fine">Billed through your Apple ID. Cancel anytime. Prices may vary by region.</p>
           </article>
         </div>
       </section>
 
-      <section class="privacy-promise" aria-label="Privacy promise">
-        <div>
-          <p class="eyebrow">Privacy first</p>
-          <h2>Your step and Screen Time data stay on your device.</h2>
+      <section class="final-cta">
+        <div class="sneaker-tile sneaker-tile-sm" aria-hidden="true">
+          <svg viewBox="0 0 120 84" class="sneaker-svg">
+            <path d="M12 58 C12 40 22 28 36 26 c6-1 13 2 19 5 l32 12 c9 3 13 7 13 11 l0 3 c0 3-2 5-6 5 L16 62 c-3 0-4-2-4-4z" fill="#7cd3a2"></path>
+            <path d="M8 62 h98 c3 0 5 2 5 5 0 5-4 8-9 8 H17 c-5 0-9-4-9-9 0-2 0-4 0-4z" fill="#e9f6ee"></path>
+            <path d="M40 34 l10 4 M46 30 l10 4 M52 26 l10 4" stroke="#fcf8f0" stroke-width="4" stroke-linecap="round"></path>
+            <g transform="translate(72 44)">
+              <path d="M4 11 v-4 a6 6 0 0 1 12 0 v4" fill="none" stroke="#e0a83c" stroke-width="3"></path>
+              <rect x="0" y="10" width="18" height="14" rx="4" fill="#ffc759"></rect>
+              <circle cx="9" cy="16" r="2.2" fill="#a9761b"></circle>
+            </g>
+          </svg>
         </div>
-        <p>
-          Stride can't see what you do inside your apps. We don't sell or share your data.
-          Health and Screen Time access stay local to your iPhone.
-        </p>
+        <div class="final-copy">
+          <h2>Ready to make<br><span class="accent">every walk count?</span></h2>
+          <!-- TODO: add App Store URL when the app is live -->
+          <span class="btn-appstore" aria-disabled="true">
+            <svg class="apple-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 1.43c0 1.14-.46 2.2-1.21 3.01-.8.88-2.1 1.56-3.17 1.47-.13-1.1.42-2.27 1.16-3.06.83-.9 2.22-1.54 3.22-1.42zM20.94 17.1c-.57 1.3-.84 1.88-1.57 3.03-1.02 1.6-2.46 3.6-4.24 3.6-1.58.02-1.99-1.04-4.14-1.03-2.14.01-2.59 1.05-4.17 1.03-1.78-.02-3.14-1.82-4.16-3.42C.34 15.9-.14 10.6 1.65 7.8c1.28-2 3.3-3.17 5.2-3.17 1.94 0 3.16 1.07 4.76 1.07 1.56 0 2.51-1.07 4.75-1.07 1.7 0 3.49.92 4.77 2.52-4.19 2.3-3.51 8.28-.19 9.95z"/></svg>
+            Download on the App Store
+          </span>
+        </div>
+        <p class="hand-note tilt-l">Walk today.<br>A better<br>tomorrow.</p>
       </section>
 
       <section class="section legal-section" id="privacy">
@@ -317,16 +608,23 @@
 
     <footer class="site-footer">
       <div class="footer-brand">
-        <span class="brand-mark" aria-hidden="true">S</span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 120 84" class="sneaker-svg">
+            <path d="M12 58 C12 40 22 28 36 26 c6-1 13 2 19 5 l32 12 c9 3 13 7 13 11 l0 3 c0 3-2 5-6 5 L16 62 c-3 0-4-2-4-4z" fill="#7cd3a2"></path>
+            <path d="M8 62 h98 c3 0 5 2 5 5 0 5-4 8-9 8 H17 c-5 0-9-4-9-9 0-2 0-4 0-4z" fill="#e9f6ee"></path>
+            <path d="M40 34 l10 4 M46 30 l10 4" stroke="#fcf8f0" stroke-width="4" stroke-linecap="round"></path>
+          </svg>
+        </span>
         <span>Stride</span>
       </div>
       <nav aria-label="Footer">
-        <a href="/privacy.html">Privacy Policy</a>
-        <a href="/terms.html">Terms of Use</a>
-        <a href="/support.html">Support</a>
+        <a href="/#how-it-works">How it works</a>
+        <a href="/#privacy">Privacy Policy</a>
+        <a href="/#terms">Terms of Use</a>
+        <a href="/#support">Support</a>
         <a href="mailto:advantageyash@gmail.com">advantageyash@gmail.com</a>
       </nav>
-      <p>&copy; 2026 Stride</p>
+      <p>© 2026 Stride — <em>A more intentional you.</em></p>
     </footer>
 
     <script>
