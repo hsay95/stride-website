@@ -579,7 +579,7 @@ ${readFileSync(new URL(`./legal/${slug}.html`, import.meta.url), "utf8")}
 });
 
 export const privacy = () =>
-  legal("privacy", "Privacy Policy", "September 13, 2026", "How Stride handles your data: step and Screen Time data stay on your iPhone, with no account and no ads.");
+  legal("privacy", "Privacy Policy", "October 26, 2026", "How Stride handles your data: step and Screen Time data stay on your iPhone, with no account and no ads. Usage analytics are anonymous and can be turned off.");
 
 export const terms = () =>
   legal("terms", "Terms of Use", "September 13, 2026", "The terms that apply when you download or use the Stride iOS app, including Stride Pro subscriptions.");

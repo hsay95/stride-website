@@ -49,7 +49,7 @@ writeFileSync(
 
 - Platform: iPhone, iOS ${SITE.minIOS} or later
 - Price: free to download; the free plan locks one app. Stride Pro (${SITE.prices.monthly}/month, ${SITE.prices.yearly}/year, ${SITE.prices.lifetime} lifetime, US prices) locks unlimited apps and whole categories.
-- Privacy: no account; step and Screen Time data stay on the device; Apple's Screen Time framework does not let Stride see what you do inside apps.
+- Privacy: no account; step and Screen Time data stay on the device; Apple's Screen Time framework does not let Stride see what you do inside apps; anonymous usage analytics (PostHog, no health or Screen Time data), opt-out in Settings > Privacy.
 - Scope: Stride locks apps and app categories, not websites.
 - App Store: ${SITE.appStore}
 - Contact: ${SITE.email}

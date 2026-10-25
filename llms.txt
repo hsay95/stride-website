@@ -4,7 +4,7 @@
 
 - Platform: iPhone, iOS 17.4 or later
 - Price: free to download; the free plan locks one app. Stride Pro ($4.99/month, $19.99/year, $39.99 lifetime, US prices) locks unlimited apps and whole categories.
-- Privacy: no account; step and Screen Time data stay on the device; Apple's Screen Time framework does not let Stride see what you do inside apps.
+- Privacy: no account; step and Screen Time data stay on the device; Apple's Screen Time framework does not let Stride see what you do inside apps; anonymous usage analytics (PostHog, no health or Screen Time data), opt-out in Settings > Privacy.
 - Scope: Stride locks apps and app categories, not websites.
 - App Store: https://apps.apple.com/app/id6767678750
 - Contact: advantageyash@gmail.com
