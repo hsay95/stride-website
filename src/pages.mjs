@@ -582,7 +582,7 @@ export const privacy = () =>
   legal("privacy", "Privacy Policy", "October 29, 2026", "How Stride handles your data: Screen Time and daily step data stay on your iPhone, no account is needed and there are no ads. Optional Friends shares only weekly totals with friends you approve. Usage analytics are anonymous and can be turned off.");
 
 export const terms = () =>
-  legal("terms", "Terms of Use", "September 13, 2026", "The terms that apply when you download or use the Stride iOS app, including Stride Pro subscriptions.");
+  legal("terms", "Terms of Use", "October 29, 2026", "The terms that apply when you download or use the Stride iOS app, including Stride Pro subscriptions.");
 
 const SUPPORT_FAQS = [
   { q: "How do I earn time?", a: "Walk. Every 500 steps earns 15 minutes of app time, banked for the whole week and reset Monday." },

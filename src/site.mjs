@@ -14,7 +14,7 @@ export const SITE = {
 };
 
 // Bump when CSS/JS change so returning visitors don't get a stale cached copy.
-const V = "20261009";
+const V = "20261029";
 
 export const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -185,9 +185,8 @@ export function page({ path, title, description, body, jsonld = [], ogImage = "/
     <meta name="twitter:image" content="${SITE.url}${ogImage}">
     <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png">
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/assets/site.css?v=${V}">
     <script>document.documentElement.className += " js";</script>
     ${ld}
