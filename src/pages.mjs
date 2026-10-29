@@ -49,7 +49,7 @@ const HOME_FAQS = [
   },
   {
     q: "Do I need an account?",
-    a: "No. There's no sign-up, email or login. Your steps, app choices and minutes stay on your iPhone.",
+    a: "No. Stride works with no sign-up, email or login, and your steps, app choices and minutes stay on your iPhone. Only the optional Friends leaderboard uses Sign in with Apple, and it shares just your weekly step total and streak with friends you approve.",
   },
   {
     q: "Which steps count?",
@@ -290,9 +290,9 @@ export function home(blockApps) {
         <a class="link-arrow" href="/privacy">Read the privacy policy ${icon("arrow")}</a>
       </div>
       <ul class="privacy-list">
-        <li><span class="ic">${icon("phone")}</span><div><strong>Stays on your iPhone</strong><span>Step and Screen Time data are processed on your device. We don't run servers that store them.</span></div></li>
+        <li><span class="ic">${icon("phone")}</span><div><strong>Stays on your iPhone</strong><span>Step and Screen Time data are processed on your device. Only if you join the optional Friends board does your weekly step total reach our server, for friends you approve.</span></div></li>
         <li><span class="ic">${icon("eyeOff")}</span><div><strong>Stride can't look inside your apps</strong><span>Screen Time is one-way. Stride can lock an app but can't see what you do in it.</span></div></li>
-        <li><span class="ic">${icon("noUser")}</span><div><strong>No account, no ads</strong><span>No sign-up and no email. We don't sell your data or use it for advertising.</span></div></li>
+        <li><span class="ic">${icon("noUser")}</span><div><strong>No account needed, no ads</strong><span>No sign-up and no email to use Stride. We don't sell your data or use it for advertising.</span></div></li>
       </ul>
     </div>
   </div>
@@ -579,7 +579,7 @@ ${readFileSync(new URL(`./legal/${slug}.html`, import.meta.url), "utf8")}
 });
 
 export const privacy = () =>
-  legal("privacy", "Privacy Policy", "October 26, 2026", "How Stride handles your data: step and Screen Time data stay on your iPhone, with no account and no ads. Usage analytics are anonymous and can be turned off.");
+  legal("privacy", "Privacy Policy", "October 29, 2026", "How Stride handles your data: Screen Time and daily step data stay on your iPhone, no account is needed and there are no ads. Optional Friends shares only weekly totals with friends you approve. Usage analytics are anonymous and can be turned off.");
 
 export const terms = () =>
   legal("terms", "Terms of Use", "September 13, 2026", "The terms that apply when you download or use the Stride iOS app, including Stride Pro subscriptions.");
