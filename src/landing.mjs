@@ -1,0 +1,428 @@
+// The Meta ads landing page: /walk. One offer, one audience, one action (open the App Store).
+// Standalone on purpose: it has its own typeface and CSS, inlined so it paints fast inside the
+// Instagram and Facebook browsers. It is noindex and stays out of the sitemap.
+// Tracking: anonymous PostHog events lp_view and lp_appstore_click, sent through the /ph rewrite in
+// vercel.json. No cookies, no ad trackers. Privacy policy section 6 describes this, so keep them in step.
+
+import { SITE, esc } from "./site.mjs";
+
+const POSTHOG_TOKEN = "phc_pmDkVFcg7JTu3RwotZeaYBWtxNRAFcuy4pJm7iAWVL2r"; // public by design, same project as the app
+const P = SITE.prices;
+
+// Phosphor icons (MIT).
+const PHOSPHOR = {
+  apple: "M128.23,30A40,40,0,0,1,167,0h1a8,8,0,0,1,0,16h-1a24,24,0,0,0-23.24,18,8,8,0,1,1-15.5-4ZM223.3,169.59a8.07,8.07,0,0,0-2.8-3.4C203.53,154.53,200,134.64,200,120c0-17.67,13.47-33.06,21.5-40.67a8,8,0,0,0,0-11.62C208.82,55.74,187.82,48,168,48a72.23,72.23,0,0,0-40,12.13,71.56,71.56,0,0,0-90.71,9.09A74.63,74.63,0,0,0,16,123.4a127,127,0,0,0,40.14,89.73A39.8,39.8,0,0,0,83.59,224h87.68a39.84,39.84,0,0,0,29.12-12.57,125,125,0,0,0,17.82-24.6C225.23,174,224.33,172,223.3,169.59Z",
+  lock: "M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z",
+  steps: "M208.06,184H152a8,8,0,0,0-8,8v12a36,36,0,0,0,72.05,0V192A8,8,0,0,0,208.06,184Zm-8,20a20,20,0,0,1-40,0v-4h40ZM104,160h-56a8,8,0,0,0-8,8v12A36,36,0,0,0,112,180V168A8,8,0,0,0,104,160Zm-8,20a20,20,0,0,1-40,0v-4H96ZM76,16C64.36,16,53.07,26.31,44.2,45c-13.93,29.38-18.56,73,.29,96a8,8,0,0,0,6.2,2.93h50.55a8,8,0,0,0,6.2-2.93c18.85-23,14.22-66.65.29-96C98.85,26.31,87.57,16,76,16ZM97.15,128H54.78c-11.4-18.1-7.21-52.7,3.89-76.11C65.14,38.22,72.17,32,76,32s10.82,6.22,17.3,19.89C104.36,75.3,108.55,109.9,97.15,128Zm57.61,40h50.55a8,8,0,0,0,6.2-2.93c18.85-23,14.22-66.65.29-96C202.93,50.31,191.64,40,180,40s-22.89,10.31-31.77,29c-13.93,29.38-18.56,73,.29,96A8.05,8.05,0,0,0,154.76,168Zm8-92.11C169.22,62.22,176.25,56,180,56s10.82,6.22,17.29,19.89c11.1,23.41,15.29,58,3.9,76.11H158.85C147.45,133.9,151.64,99.3,162.74,75.89Z",
+  unlock: "M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,0,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z",
+  plus: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z",
+  check: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z",
+  shield: "M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z",
+  timer: "M128,40a96,96,0,1,0,96,96A96.11,96.11,0,0,0,128,40Zm0,176a80,80,0,1,1,80-80A80.09,80.09,0,0,1,128,216ZM173.66,90.34a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32l40-40A8,8,0,0,1,173.66,90.34ZM96,16a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H104A8,8,0,0,1,96,16Z",
+  friends: "M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z",
+};
+const ph = (name, cls = "icon") =>
+  `<svg class="${cls}" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="${PHOSPHOR[name]}"/></svg>`;
+
+// Every App Store button on the page. data-placement says which one was tapped.
+const cta = (placement) =>
+  `<a class="cta button-lg" href="${SITE.appStore}" data-placement="${placement}">${ph("apple", "icon-apple")}Download free on the App Store</a>`;
+
+const phone = (slug, alt, { eager = false, sizes = "(max-width: 767px) 260px, 320px" } = {}) =>
+  `<img class="phone" src="/assets/lp/phone-${slug}-800.webp" srcset="/assets/lp/phone-${slug}-400.webp 400w, /assets/lp/phone-${slug}-800.webp 800w" sizes="${sizes}" width="800" height="1633" alt="${esc(alt)}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async">`;
+
+const FAQS = [
+  ["How does Stride work?", "Pick the apps you want to use less and Stride locks them with Apple's Screen Time. Every 500 steps you walk, counted by Apple Health, adds 15 minutes to your bank. Start a pass when you want a break. When the minutes are used, the apps lock again."],
+  ["Is it free?", `Yes, Stride is free to download and the free plan locks one app, including walking to earn and your weekly bank. Stride Pro locks unlimited apps and whole categories such as Social and Games. It costs ${P.monthly} a month, ${P.yearly} a year or ${P.lifetime} once (US prices). Apple handles every purchase.`],
+  ["Does Stride see what I do in my apps?", "No. Apple's Screen Time system lets Stride lock and unlock the apps you choose, but Stride can't see which apps you use or what you do inside them."],
+  ["Do I need an account?", "No. Stride works with no sign up, email or login. Only the optional Friends leaderboard uses Sign in with Apple, and it shares just your weekly step total and streak with friends you approve."],
+  ["Which steps count?", "Steps your iPhone or Apple Watch records in Apple Health. Steps typed in by hand in the Health app don't count toward earned minutes."],
+  ["What happens when my minutes run out?", "Your locked apps lock again on their own. Stride sends a heads up when one minute is left and another when your minutes are used. Minutes only count down while you're using locked apps."],
+  ["Do unused minutes expire?", "Earned minutes stay in your bank for the whole week and reset every Monday, so a long Monday walk can cover a few breaks later in the week."],
+  ["Which devices does Stride work on?", `iPhone with iOS ${SITE.minIOS} or later. Stride isn't available for iPad or Android yet.`],
+];
+
+const CSS = `
+@font-face{font-family:"Manrope";src:url("/assets/fonts/manrope-latin.woff2") format("woff2");font-weight:200 800;font-style:normal;font-display:swap}
+:root{--bg:#f6f2ea;--surface:#fffdf9;--well:#ece6da;--ink:#0f1c16;--text:#3f4a43;--muted:#5f675f;--forest:#1f3d2e;--mint:#b5e6cc;--line:rgba(31,61,46,.12);--curve:cubic-bezier(.22,1,.36,1);color-scheme:light}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:"Manrope",ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:16px;line-height:24px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block}
+a{color:inherit}
+h1,h2,h3{color:var(--ink);text-wrap:balance}
+p,li,summary{text-wrap:pretty}
+.heading-1{font-size:60px;line-height:60px;font-weight:600}
+.heading-2{font-size:48px;line-height:48px;font-weight:600}
+.heading-3{font-size:36px;line-height:40px;font-weight:600}
+.heading-4{font-size:30px;line-height:36px;font-weight:600}
+.heading-5{font-size:24px;line-height:32px;font-weight:600}
+.heading-6{font-size:20px;line-height:28px;font-weight:600}
+.title-2{font-size:18px;line-height:28px;font-weight:500}
+.title-3{font-size:16px;line-height:24px;font-weight:500}
+.body-3{font-size:16px;line-height:24px;font-weight:400}
+.body-1{font-size:16px;line-height:24px;font-weight:600}
+.caption-1{font-size:14px;line-height:20px;font-weight:500}
+.caption-2{font-size:14px;line-height:20px;font-weight:400}
+.caption-5{font-size:12px;line-height:16px;font-weight:400}
+.button-lg{font-size:18px;line-height:28px;font-weight:600}
+.button-md{font-size:16px;line-height:24px;font-weight:600}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 16px}
+.skip{position:absolute;left:16px;top:-64px;background:var(--ink);color:#fff;padding:8px 12px;border-radius:8px;z-index:30}
+.skip:focus{top:8px}
+:focus-visible{outline:2px solid var(--forest);outline-offset:2px}
+
+.nav{position:absolute;top:8px;left:0;right:0;display:flex;justify-content:center;z-index:10}
+.brand{display:flex;align-items:center;gap:8px;padding:8px 16px 8px 8px;background:rgba(255,253,249,.72);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:16px;text-decoration:none;color:var(--ink)}
+.brand img{border-radius:8px}
+
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;width:100%;padding:8px 12px;background:var(--ink);color:#fff;border-radius:12px;text-decoration:none;white-space:nowrap;transition:transform 300ms var(--curve),background-color 300ms var(--curve),opacity 300ms var(--curve)}
+.cta:hover{background:var(--forest);transform:translateY(-2px)}
+.cta:active{transform:scale(.98)}
+.icon-apple{width:24px;height:24px;flex:none}
+.icon{width:24px;height:24px;flex:none}
+
+.hero{padding:80px 0 0;overflow:hidden}
+.hero-copy{max-width:680px}
+.hero h1{background:linear-gradient(90deg,#000 0%,#666 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding-bottom:2px}
+.hero .sub{margin-top:16px;max-width:680px;color:var(--text)}
+.hero .cta{margin-top:24px}
+.assure{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:16px;padding:0;list-style:none;color:var(--muted)}
+.assure li{display:flex;align-items:center;gap:4px}
+.assure svg{width:16px;height:16px;color:var(--forest)}
+.hero-media{display:flex;justify-content:center;align-items:flex-start;height:360px;margin-top:32px;clip-path:inset(-64px -64px 0 -64px)}
+.phone{width:260px;height:auto;filter:drop-shadow(0 24px 32px rgba(31,61,46,.22))}
+
+section.block{padding:64px 0}
+.eyebrow{color:var(--forest);margin-bottom:8px}
+.lede{margin-top:16px;max-width:680px}
+
+.problem{background:var(--forest);color:rgba(255,255,255,.82)}
+.problem h2{color:#fff}
+.compare{display:grid;gap:12px;margin-top:32px}
+.compare div{padding:24px;border-radius:16px;background:rgba(255,255,255,.08)}
+.compare h3{color:#fff;margin-bottom:8px}
+.compare .win{background:var(--mint);color:var(--forest)}
+.compare .win h3{color:var(--forest)}
+
+.tagline{padding:96px 0}
+.tagline p{color:var(--ink);max-width:680px}
+.tagline .w{transition:opacity 500ms var(--curve)}
+.js .tagline .w{opacity:.3}
+.js .tagline .w.on{opacity:1}
+
+.benefit{display:grid;gap:32px;align-items:center;padding:32px 0}
+.benefit-media{display:flex;justify-content:center;align-items:flex-start;height:400px;overflow:hidden;background:var(--well);border-radius:24px;padding:32px 16px 0}
+.benefit-copy .ic{display:flex;width:48px;height:48px;align-items:center;justify-content:center;background:var(--mint);color:var(--forest);border-radius:12px;margin-bottom:16px}
+.benefit-copy p{margin-top:8px;max-width:520px}
+
+.steps{display:grid;gap:12px;margin-top:32px;padding:0;list-style:none;counter-reset:s}
+.steps li{padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.steps .ic{display:flex;width:48px;height:48px;align-items:center;justify-content:center;background:var(--mint);color:var(--forest);border-radius:12px;margin-bottom:16px}
+.steps p{margin-top:4px}
+
+.stats{display:grid;gap:12px;margin-top:32px}
+.stat{padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.stat strong{display:block;color:var(--forest);margin-bottom:8px}
+.stat cite{display:block;margin-top:12px;font-style:normal;color:var(--muted)}
+.fine{margin-top:16px;color:var(--muted)}
+
+.faq{margin-top:32px;display:grid;gap:8px;max-width:760px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.faq summary{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px;color:var(--ink);cursor:pointer;list-style:none;border-radius:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary svg{width:16px;height:16px;flex:none;transition:transform 500ms var(--curve)}
+.faq details[open] summary svg{transform:rotate(45deg)}
+.faq details p{padding:0 16px 16px}
+
+.final{padding:0 0 96px}
+.final-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:40px 16px;background:var(--surface);border:1px solid var(--line);border-radius:24px}
+.final-card img{margin-bottom:16px}
+.final-card p{margin-top:12px;max-width:520px}
+.final-card .cta{margin-top:24px}
+.final-card .caption-2{color:var(--muted)}
+
+footer{padding:32px 0 112px;border:1px solid var(--line);border-width:1px 0 0;color:var(--muted)}
+footer nav{display:flex;flex-wrap:wrap;gap:8px 24px;margin-bottom:12px}
+footer a{color:var(--text)}
+
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:8px 16px calc(8px + env(safe-area-inset-bottom));background:rgba(246,242,234,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--line);border-width:1px 0 0;opacity:0;transform:translateY(100%);visibility:hidden;transition:transform 500ms var(--curve),opacity 300ms var(--curve),visibility 0s 500ms}
+.sticky.show{opacity:1;transform:none;visibility:visible;transition:transform 500ms var(--curve),opacity 300ms var(--curve)}
+.sticky .cta{max-width:400px;margin:0 auto}
+
+.js .reveal{opacity:0;transform:translateY(32px);transition:opacity 700ms var(--curve),transform 700ms var(--curve)}
+.js .reveal.in{opacity:1;transform:none}
+
+@media (max-width:359px){.cta.button-lg{font-size:16px;line-height:24px}}
+@media (min-width:768px){
+  .wrap{padding:0 24px}
+  .hero{padding:96px 0 64px}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,680px) 1fr;gap:40px;align-items:center}
+  .hero h1{font-size:60px;line-height:60px}
+  .hero .cta{width:auto;min-width:352px;display:inline-flex}
+  .hero-media{height:auto;margin-top:0;clip-path:none}
+  .phone{width:320px}
+  section.block{padding:96px 0}
+  section.block h2.heading-4{font-size:48px;line-height:48px}
+  .compare,.steps,.stats{grid-template-columns:repeat(3,1fr);gap:16px}
+  .compare{grid-template-columns:repeat(2,1fr)}
+  .benefit{grid-template-columns:1fr 1fr;gap:64px;padding:48px 0}
+  .benefit.flip .benefit-media{order:2}
+  .benefit-media{height:480px}
+  .benefit-copy h3{font-size:30px;line-height:36px}
+  .tagline p{font-size:60px;line-height:60px}
+  .tagline{padding:96px 0}
+  .final-card{padding:64px 24px}
+  .final-card .cta{width:auto;min-width:352px}
+  .sticky .cta{width:352px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{transform:none;transition:opacity 300ms linear}
+  .js .tagline .w{opacity:1}
+  .cta,.cta:hover,.sticky,.sticky.show{transition:opacity 300ms var(--curve);transform:none}
+  .sticky{transform:none}
+}
+`;
+
+// Runs before anything else on the page so a fast tap on the hero button is still counted.
+const TRACKER = `
+(function () {
+  document.documentElement.classList.add("js");
+  var q = new URLSearchParams(location.search);
+  var ua = navigator.userAgent;
+  var platform = /iPhone|iPod/.test(ua) ? "iphone"
+    : /iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ? "ipad"
+    : /Android/.test(ua) ? "android" : "desktop";
+  var id = null;
+  function random() { return "lp-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 12); }
+  // One random ID per visit, gone when the tab closes. It never leaves this page's own storage.
+  try { id = sessionStorage.getItem("lp_id"); if (!id) { id = random(); sessionStorage.setItem("lp_id", id); } } catch (e) { id = random(); }
+  var base = {
+    "$process_person_profile": false, "$geoip_disable": true, "$lib": "stride-lp",
+    "$current_url": location.origin + location.pathname, "$host": location.host,
+    page: "walk", platform: platform, lang: navigator.language || "",
+    in_app: /Instagram/.test(ua) ? "instagram" : /FBAN|FBAV|FB_IAB/.test(ua) ? "facebook" : "none",
+    qa: q.has("qa")
+  };
+  ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function (k) {
+    var v = q.get(k); if (v) base[k] = v.slice(0, 120);
+  });
+  function send(event, extra) {
+    var props = Object.assign({}, base, extra || {});
+    var body = JSON.stringify({ api_key: "${POSTHOG_TOKEN}", event: event, distinct_id: id, properties: props, timestamp: new Date().toISOString() });
+    var sent = false;
+    // A beacon survives the jump to the App Store, which would cancel a normal request.
+    try { sent = navigator.sendBeacon("/ph/i/v0/e/", new Blob([body], { type: "application/json" })); } catch (e) {}
+    if (!sent) { try { fetch("/ph/i/v0/e/", { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" }, body: body }); } catch (e) {} }
+  }
+  send("lp_view", { referrer_host: document.referrer ? new URL(document.referrer).host : "" });
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[data-placement]");
+    if (a) send("lp_appstore_click", { placement: a.getAttribute("data-placement") });
+  }, true);
+})();
+`;
+
+const UI = `
+(function () {
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var reveals = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px" });
+    reveals.forEach(function (el) { io.observe(el); });
+
+    // The sticky button shows only while neither the hero button nor the final button is on screen.
+    var sticky = document.querySelector(".sticky");
+    var inView = {};
+    var so = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { inView[e.target.dataset.placement] = e.isIntersecting; });
+      sticky.classList.toggle("show", !inView.hero && !inView.final);
+    });
+    document.querySelectorAll('.hero .cta, .final .cta').forEach(function (el) { so.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add("in"); });
+  }
+
+  // Tagline: each word lights up in reading order as the section scrolls through the screen.
+  var line = document.querySelector("[data-words]");
+  if (line && !reduce) {
+    line.innerHTML = line.innerHTML.split(/(<br>|\\s+)/).map(function (t) {
+      return !t.trim() || t === "<br>" ? t : '<span class="w">' + t + "</span>";
+    }).join("");
+    var words = line.querySelectorAll(".w");
+    var queued = false;
+    var paint = function () {
+      queued = false;
+      var r = line.getBoundingClientRect(), vh = innerHeight;
+      var p = Math.max(0, Math.min(1, (vh * 0.85 - r.top) / (vh * 0.5)));
+      var n = Math.ceil(p * words.length);
+      words.forEach(function (w, i) { w.classList.toggle("on", i < n); });
+    };
+    addEventListener("scroll", function () { if (!queued) { queued = true; requestAnimationFrame(paint); } }, { passive: true });
+    paint();
+  }
+})();
+`;
+
+const BODY = `
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Stride"><a class="brand title-3" href="/"><img src="/assets/icon-128.webp" width="32" height="32" alt="">Stride</a></nav>
+<main id="main">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1 class="heading-3">Stop doomscrolling.<br>Walk to unlock<br>your apps.</h1>
+      <p class="sub body-3">Stride locks the apps you lose hours to. Every 500 steps you walk earns back 15 minutes, so your phone gets you moving first.</p>
+      ${cta("hero")}
+      <ul class="assure caption-1">
+        <li>${ph("check")}Free to download</li>
+        <li>${ph("check")}No account</li>
+        <li>${ph("check")}For iPhone</li>
+      </ul>
+    </div>
+    <div class="hero-media">
+      ${phone("today", "Stride's Today screen: 3,913 steps today and 352 more steps to earn 15 minutes", { eager: true })}
+    </div>
+  </div>
+</section>
+
+<section class="block problem">
+  <div class="wrap">
+    <h2 class="heading-4 reveal">A limit you can dismiss<br>isn't much of a limit.</h2>
+    <div class="compare">
+      <div class="reveal"><h3 class="heading-6">The usual app timer</h3><p class="body-3">Time runs out, you tap to ignore it, and you keep scrolling. Nothing about your evening changes.</p></div>
+      <div class="win reveal"><h3 class="heading-6">Stride</h3><p class="body-3">Your apps stay locked until you've earned the time on your feet. You still get your breaks, and you walked for them.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="tagline">
+  <div class="wrap"><p class="heading-3" data-words>Five minutes<br>on your feet<br>buys fifteen<br>on your phone.</p></div>
+</section>
+
+<section class="benefits" aria-label="What you get">
+  <div class="wrap">
+    <div class="benefit reveal">
+      <div class="benefit-media">${phone("apps", "Stride's Apps screen with Entertainment, Social and Games locked")}</div>
+      <div class="benefit-copy">
+        <span class="ic">${ph("lock")}</span>
+        <h3 class="heading-5">Lock the apps that pull you in</h3>
+        <p class="body-3">Choose the app you open without thinking. The free plan locks one. Pro locks as many as you want, or whole categories like Social and Games.</p>
+      </div>
+    </div>
+    <div class="benefit flip reveal">
+      <div class="benefit-media">${phone("bank", "Stride's Time Bank showing 5 hours 35 minutes of app time and a Start 15 min app pass button")}</div>
+      <div class="benefit-copy">
+        <span class="ic">${ph("timer")}</span>
+        <h3 class="heading-5">Spend your minutes when you choose</h3>
+        <p class="body-3">Steps turn into a time bank that lasts all week and resets on Monday. Minutes only run while you use a locked app, and apps relock on their own when a pass ends.</p>
+      </div>
+    </div>
+    <div class="benefit reveal">
+      <div class="benefit-media">${phone("friends", "Stride's Friends leaderboard ranking friends by steps this week")}</div>
+      <div class="benefit-copy">
+        <span class="ic">${ph("friends")}</span>
+        <h3 class="heading-5">Walk with your friends, if you like</h3>
+        <p class="body-3">Add friends to a weekly step leaderboard and keep a streak going. It's optional, and it shares only your weekly steps and streak with people you approve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <p class="eyebrow caption-1 reveal">How it works</p>
+    <h2 class="heading-4 reveal">Set up in about two minutes</h2>
+    <ol class="steps">
+      <li class="reveal"><span class="ic">${ph("lock")}</span><h3 class="heading-6">Pick what to lock</h3><p class="body-3">Allow Apple Health and Screen Time, then choose your app. It locks right away.</p></li>
+      <li class="reveal"><span class="ic">${ph("steps")}</span><h3 class="heading-6">Go for a walk</h3><p class="body-3">Stride counts the steps your iPhone or Apple Watch records. Every 500 earns 15 minutes.</p></li>
+      <li class="reveal"><span class="ic">${ph("unlock")}</span><h3 class="heading-6">Unlock, then relock</h3><p class="body-3">Start a 15 minute pass when you want a break. When it's used, your apps lock again.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow caption-1 reveal">Why walking</p>
+    <h2 class="heading-4 reveal">A small walk is a good trade</h2>
+    <div class="stats">
+      <article class="stat reveal"><strong class="heading-3">51%</strong><p class="body-3">lower risk of death from any cause for US adults taking 8,000 steps a day compared with 4,000.</p><cite class="caption-5">Saint Maurice et al., <a href="https://doi.org/10.1001/jama.2020.1382" rel="noopener">JAMA, 2020</a></cite></article>
+      <article class="stat reveal"><strong class="heading-3">60%</strong><p class="body-3">average boost in creative output while walking instead of sitting, in Stanford experiments.</p><cite class="caption-5">Oppezzo and Schwartz, <a href="https://doi.org/10.1037/a0036577" rel="noopener">J. Exp. Psychology, 2014</a></cite></article>
+      <article class="stat reveal"><strong class="heading-3">5 min</strong><p class="body-3">of brisk walking covers about 500 steps, at the pace of 100 steps a minute researchers call moderate.</p><cite class="caption-5">Tudor Locke et al., <a href="https://doi.org/10.1136/bjsports-2017-097628" rel="noopener">Br. J. Sports Med., 2018</a></cite></article>
+    </div>
+    <p class="fine caption-5">Research findings describe averages and associations, not guaranteed results. Stride is a focus tool, not a medical device.</p>
+  </div>
+</section>
+
+<section class="block" style="padding-top:0">
+  <div class="wrap">
+    <h2 class="heading-4 reveal">Questions people ask</h2>
+    <div class="faq">
+      ${FAQS.map(([q, a]) => `<details><summary class="title-3">${esc(q)}${ph("plus")}</summary><p class="body-3">${esc(a)}</p></details>`).join("\n      ")}
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <div class="final-card reveal">
+      <img src="/assets/lp/mascot-320.webp" width="160" height="160" alt="Stride's green walking buddy waving" loading="lazy">
+      <h2 class="heading-4">Your next walk pays<br>for your next scroll.</h2>
+      <p class="body-3">Free to download. The free plan locks one app, and you can keep it as long as you like.</p>
+      ${cta("final")}
+      <p class="caption-2" style="margin-top:12px">iPhone with iOS ${SITE.minIOS} or later</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap caption-2">
+    <nav aria-label="Legal"><a href="/">Stride home</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></nav>
+    <p class="caption-5">App screens show sample data. This page counts visits and App Store taps anonymously, with no cookies. See our <a href="/privacy">privacy policy</a>.</p>
+  </div>
+</footer>
+
+<div class="sticky">${cta("sticky")}</div>
+`;
+
+export function landing() {
+  const title = "Stride: Walk to unlock your apps";
+  const description = "Stride locks the apps you lose hours to. Every 500 steps you walk earns back 15 minutes. Free on the App Store for iPhone.";
+  return {
+    file: "walk.html",
+    html: `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>${title}</title>
+<meta name="description" content="${description}">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#f6f2ea">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Stride">
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${description}">
+<meta property="og:url" content="${SITE.url}/walk">
+<meta property="og:image" content="${SITE.url}/assets/og/home.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon-48.png" sizes="48x48">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>${CSS}</style>
+<script>${TRACKER}</script>
+</head>
+<body>
+${BODY}
+<script>${UI}</script>
+</body>
+</html>
+`,
+  };
+}

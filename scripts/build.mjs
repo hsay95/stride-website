@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import { SITE, page } from "../src/site.mjs";
 import { BLOCK_APPS } from "../src/block-apps.mjs";
 import { home, blockPage, privacy, terms, support, notFound } from "../src/pages.mjs";
+import { landing } from "../src/landing.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -25,6 +26,11 @@ for (const p of pages) {
   writeFileSync(out, page({ ...p, blockApps: BLOCK_APPS }));
   console.log("wrote", p.file);
 }
+
+// The ads landing page: standalone HTML, noindex, not in the sitemap.
+const lp = landing();
+writeFileSync(join(ROOT, lp.file), lp.html);
+console.log("wrote", lp.file);
 
 const indexed = pages.filter((p) => !p.noindex);
 const priority = (path) => (path === "/" ? "1.0" : path.startsWith("/block/") ? "0.8" : "0.4");
