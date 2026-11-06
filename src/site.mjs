@@ -6,6 +6,11 @@ export const SITE = {
   storeName: "Stride - App Lock & Focus",
   appId: "6767678750",
   appStore: "https://apps.apple.com/app/id6767678750",
+  // App Store Connect provider token ("pt"). When set, the /get landing page
+  // forwards utm_campaign to the App Store as a campaign token ("ct"), so
+  // installs per campaign show up in App Store Connect > App Analytics > Sources.
+  // Find it in App Store Connect > App Analytics > Campaigns > Generate Campaign Link.
+  providerToken: "",
   email: "advantageyash@gmail.com",
   minIOS: "17.4",
   // Verified on the US App Store listing, 2026-10-09.
@@ -14,7 +19,7 @@ export const SITE = {
 };
 
 // Bump when CSS/JS change so returning visitors don't get a stale cached copy.
-const V = "20261029";
+const V = "20261106";
 
 export const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -158,7 +163,36 @@ function footer(blockApps) {
 </footer>`;
 }
 
-export function page({ path, title, description, body, jsonld = [], ogImage = "/assets/og/home.png", current = "", blockApps, noindex = false }) {
+// Paid-traffic pages: no nav links or link-heavy footer to leak visitors,
+// just the brand, one CTA, and the legal links the ad networks require.
+function landingHeader() {
+  return `
+<header class="nav nav-landing" data-nav>
+  <div class="container nav-inner">
+    <span class="brand"><img src="/assets/icon-128.webp" width="34" height="34" alt=""><span>Stride</span></span>
+    <a class="nav-cta" href="${SITE.appStore}" data-cta="app-store">${APPLE}Get the app</a>
+  </div>
+</header>`;
+}
+
+function landingFooter() {
+  return `
+<div class="sticky-cta" data-sticky-cta aria-hidden="true">
+  <img src="/assets/icon-128.webp" width="44" height="44" alt="">
+  <div><strong>Stride</strong><span>Free · iPhone</span></div>
+  <a class="nav-cta" href="${SITE.appStore}" data-cta="app-store" tabindex="-1">${APPLE}Get the app</a>
+</div>
+<footer class="footer footer-landing">
+  <div class="container footer-bottom">
+    <span>© 2026 Stride. Made for iPhone.</span>
+    <nav aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></nav>
+    <p>Apple, the Apple logo, iPhone, App Store and Apple Health are trademarks of Apple Inc. Other app names are trademarks of their respective owners. Stride is not affiliated with or endorsed by them.</p>
+  </div>
+</footer>`;
+}
+
+export function page({ path, title, description, body, jsonld = [], ogImage = "/assets/og/home.png", current = "", blockApps, noindex = false, layout = "site" }) {
+  const landing = layout === "landing";
   const canonical = SITE.url + (path === "/" ? "/" : path);
   const ld = jsonld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n    ");
   return `<!doctype html>
@@ -191,12 +225,12 @@ export function page({ path, title, description, body, jsonld = [], ogImage = "/
     <script>document.documentElement.className += " js";</script>
     ${ld}
   </head>
-  <body>
-    ${header(current)}
+  <body${landing ? ' class="is-landing"' : ""}>
+    ${landing ? landingHeader() : header(current)}
     <main id="main">
 ${body}
     </main>
-    ${footer(blockApps)}
+    ${landing ? landingFooter() : footer(blockApps)}${landing ? `\n    <script>window.STRIDE_PT = ${JSON.stringify(SITE.providerToken)};</script>` : ""}
     <script src="/assets/site.js?v=${V}" defer></script>
   </body>
 </html>

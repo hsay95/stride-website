@@ -6,13 +6,14 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, page } from "../src/site.mjs";
 import { BLOCK_APPS } from "../src/block-apps.mjs";
-import { home, blockPage, privacy, terms, support, notFound } from "../src/pages.mjs";
+import { home, blockPage, getPage, privacy, terms, support, notFound } from "../src/pages.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const pages = [
   home(BLOCK_APPS),
   ...BLOCK_APPS.map((app) => blockPage(app, BLOCK_APPS)),
+  getPage(),
   support(),
   privacy(),
   terms(),

@@ -767,6 +767,56 @@ h1, h2, h3, h4 { margin: 0; font-weight: 600; letter-spacing: -0.01em; }
 .notfound .lede { margin: 22px auto 0; }
 .notfound .cta-row { justify-content: center; }
 
+/* ---------- Ad landing (/get) ---------- */
+
+.nav-landing .brand { cursor: default; }
+.cta-center { justify-content: center; margin-top: 48px; }
+.not-iphone { margin-top: 18px; font-size: 15px; color: var(--muted); }
+.hero-landing .lede { max-width: 30em; }
+
+.sticky-cta {
+  position: fixed;
+  z-index: 60;
+  left: 12px;
+  right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  display: none;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 10px 12px;
+  border-radius: 22px;
+  background: rgba(255, 253, 249, 0.92);
+  -webkit-backdrop-filter: saturate(1.6) blur(18px);
+  backdrop-filter: saturate(1.6) blur(18px);
+  border: 1px solid var(--hair-2);
+  box-shadow: var(--shadow-md);
+  transform: translateY(140%);
+  transition: transform 0.35s var(--ease);
+}
+.sticky-cta img { width: 44px; height: 44px; border-radius: 11px; flex: none; }
+.sticky-cta div { flex: 1; min-width: 0; line-height: 1.2; }
+.sticky-cta strong { display: block; font-size: 16px; letter-spacing: -0.01em; }
+.sticky-cta span { display: block; font-size: 13px; color: var(--muted); }
+.sticky-cta .nav-cta { height: 44px; }
+.sticky-cta.is-visible { transform: none; }
+
+.footer-landing { padding: 36px 0 44px; }
+.footer-landing .footer-bottom { margin-top: 0; padding-top: 0; border-top: 0; }
+.footer-landing nav { display: flex; gap: 18px; }
+.footer-landing nav a { color: var(--muted); text-decoration: none; }
+.footer-landing nav a:hover { color: var(--forest); }
+
+@media (max-width: 960px) {
+  .sticky-cta { display: flex; }
+  .is-landing { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .is-landing.sticky-on .nav-landing .nav-cta { opacity: 0; pointer-events: none; }
+  .nav-landing .nav-cta { transition: opacity 0.25s, transform 0.2s var(--ease); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky-cta { transition: none; }
+}
+
 /* ---------- Motion ---------- */
 
 .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }

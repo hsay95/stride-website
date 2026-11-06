@@ -49,4 +49,41 @@
     input.addEventListener("input", update);
     update();
   });
+  // ---- /get ad landing page only ----
+  if (document.body.classList.contains("is-landing")) {
+    // Forward the ad's campaign to the App Store so App Store Connect can
+    // attribute installs (needs SITE.providerToken). Apple caps ct at 40 chars.
+    var pt = window.STRIDE_PT;
+    var q = new URLSearchParams(location.search);
+    var ct = q.get("ct") || q.get("utm_campaign") || q.get("utm_source");
+    if (pt && ct) {
+      document.querySelectorAll('a[data-cta="app-store"]').forEach(function (a) {
+        var u = new URL(a.href);
+        u.searchParams.set("pt", pt);
+        u.searchParams.set("ct", ct.slice(0, 40));
+        u.searchParams.set("mt", "8");
+        a.href = u.toString();
+      });
+    }
+
+    // Stride is iPhone-only: tell desktop and Android visitors before they click.
+    var ua = navigator.userAgent;
+    var isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    var note = document.querySelector("[data-not-iphone]");
+    if (note && !isIOS) note.hidden = false;
+
+    // Thumb-reach CTA once the hero button scrolls away (CSS shows it on phones only).
+    var bar = document.querySelector("[data-sticky-cta]");
+    var heroCta = document.querySelector("[data-hero-cta]");
+    if (bar && heroCta && "IntersectionObserver" in window) {
+      var link = bar.querySelector("a");
+      new IntersectionObserver(function (entries) {
+        var past = !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0;
+        bar.classList.toggle("is-visible", past);
+        document.body.classList.toggle("sticky-on", past);
+        bar.setAttribute("aria-hidden", past ? "false" : "true");
+        link.tabIndex = past ? 0 : -1;
+      }).observe(heroCta);
+    }
+  }
 })();

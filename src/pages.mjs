@@ -629,3 +629,157 @@ export const notFound = () => ({
   </div>
 </div>`,
 });
+
+// ---------------------------------------------------------------- /get (paid-traffic landing)
+// One job: get an iPhone visitor from an ad to the App Store. No site nav,
+// every CTA goes to the store, and it is noindex so it never competes with /.
+
+const GET_FAQS = [
+  {
+    q: "Is Stride free?",
+    a: `Yes. The free plan locks one app and includes walking to earn, the weekly bank and your progress. Stride Pro (${P.monthly}/month, ${P.yearly}/year, or ${P.lifetime} once, US prices) locks unlimited apps and whole categories.`,
+  },
+  {
+    q: "Does Stride see what I do in my apps?",
+    a: "No. Apple's Screen Time framework is one-way: Stride can lock and unlock the apps you choose, but it can't see what you do inside them.",
+  },
+  {
+    q: "Do I need an account?",
+    a: "No. No sign-up, email or login. Your steps and app choices stay on your iPhone.",
+  },
+  {
+    q: "What if I really need an app right now?",
+    a: "Spend minutes from your bank, or take a short walk to earn more. You can also remove a lock at any time. Stride is a commitment device, not a cage.",
+  },
+  {
+    q: "Which phones does it work on?",
+    a: `iPhone with iOS ${SITE.minIOS} or later. Steps from an Apple Watch count too, through Apple Health. Stride isn't available on Android.`,
+  },
+];
+
+export function getPage() {
+  const body = `
+<section class="hero hero-landing">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="pill rise"><span class="dot"></span>Free on the App Store<span class="sep"></span><span class="muted">for iPhone</span></span>
+      <h1 class="display rise d1">Walk more.<br><em>Scroll less.</em></h1>
+      <p class="lede rise d2">Stride locks the apps you lose hours to. Every 500 steps you walk unlocks 15 minutes, about five minutes of walking for fifteen minutes of scrolling.</p>
+      <div class="cta-row rise d3" data-hero-cta>
+        ${badge()}
+      </div>
+      <p class="not-iphone" data-not-iphone hidden>Stride is for iPhone. Open this page on your iPhone to download it.</p>
+      <ul class="meta-list rise d3">
+        <li>${icon("check")}Free to download</li>
+        <li>${icon("noUser")}No account</li>
+        <li>${icon("shield")}Data stays on your iPhone</li>
+      </ul>
+    </div>
+    <div class="hero-visual">
+      ${stepRing("hero-ring", "rg-hero")}
+      ${shot("today", "Stride's Today screen: 3,236 steps today, 3h 45m of app time saved, and a Start 15 min app pass button", { eager: true })}
+      ${ruleChip()}
+    </div>
+  </div>
+</section>
+
+<section class="section rule" id="how-it-works">
+  <div class="container">
+    <span class="kicker kicker-plain reveal">How it works</span>
+    <h2 class="equation reveal d1"><span>500 steps</span> <span class="eq">=</span> <span class="mins">15 minutes</span></h2>
+    <p class="lede reveal d2">Minutes bank up all week and reset every Monday. When they're used, your apps lock again on their own.</p>
+    <div class="steps">
+      <article class="step reveal">
+        <div class="step-top"><span class="step-ic">${icon("lock")}</span><span class="step-n">01</span></div>
+        <h3>Lock your scroll traps</h3>
+        <p>Pick the apps that pull you in. Apple's Screen Time shield closes them right away.</p>
+      </article>
+      <article class="step reveal d1">
+        <div class="step-top"><span class="step-ic">${icon("footprints")}</span><span class="step-n">02</span></div>
+        <h3>Walk to earn</h3>
+        <p>Stride reads your steps from Apple Health. Every 500 adds 15 minutes to your bank.</p>
+      </article>
+      <article class="step reveal d2">
+        <div class="step-top"><span class="step-ic">${icon("unlock")}</span><span class="step-n">03</span></div>
+        <h3>Unlock, then relock</h3>
+        <p>Start a pass when you want a break. When it's used, your apps lock again.</p>
+      </article>
+    </div>
+    <div class="cta-row cta-center reveal">${badge()}</div>
+  </div>
+</section>
+
+<section class="section gallery" id="screens">
+  <div class="container gallery-head">
+    <div>
+      <span class="kicker reveal">The real app</span>
+      <h2 class="h2 reveal d1">Set up in <em>two minutes.</em></h2>
+      <p class="lede reveal d2" style="margin-top:20px">Allow Apple Health and Screen Time, pick an app to lock, and your next walk starts counting.</p>
+    </div>
+    <div class="rail-controls">
+      <button class="rail-btn" type="button" data-rail-dir="-1" aria-label="Previous screenshots">${icon("arrowLeft")}</button>
+      <button class="rail-btn" type="button" data-rail-dir="1" aria-label="Next screenshots">${icon("arrow")}</button>
+    </div>
+  </div>
+  <div class="rail" data-rail tabindex="0" aria-label="App Store screenshots">
+    ${[
+      "Walk more. Scroll less. 500 steps equals 15 minutes of app time",
+      "Walk to earn screen time: the Today screen and time bank",
+      "Lock your scroll traps: whole categories locked with Pro",
+      "Apps relock on their own, with real Stride notifications",
+      "Watch your walks add up: the This Week screen",
+      "Start walking in 2 minutes: onboarding complete",
+    ]
+      .map(
+        (alt, i) =>
+          `<figure><img src="/assets/store/panel-${i + 1}.webp" width="600" height="1304" alt="${esc(alt)}" loading="lazy" decoding="async"></figure>`
+      )
+      .join("\n    ")}
+  </div>
+  <div class="container gallery-foot">
+    ${badge("badge-light")}
+    <p>Free to download. iPhone, iOS ${SITE.minIOS}+.</p>
+  </div>
+</section>
+
+<section class="section" id="privacy">
+  <div class="container">
+    <div class="privacy-card reveal">
+      <div>
+        <span class="kicker">No catch</span>
+        <h2 class="h2">Free, private, <em>no sign-up.</em></h2>
+        <p class="lede">Built on Apple's privacy-protected frameworks. Your steps and screen habits are nobody's business but yours.</p>
+      </div>
+      <ul class="privacy-list">
+        <li><span class="ic">${icon("check")}</span><div><strong>Free plan, for good</strong><span>Lock your biggest distraction for free. Pro adds unlimited apps and whole categories.</span></div></li>
+        <li><span class="ic">${icon("eyeOff")}</span><div><strong>Stride can't look inside your apps</strong><span>Screen Time is one-way. Stride can lock an app but can't see what you do in it.</span></div></li>
+        <li><span class="ic">${icon("noUser")}</span><div><strong>No account, no ads</strong><span>No email, no login. Step and Screen Time data stay on your iPhone.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq" style="padding-top:0">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker reveal">FAQ</span>
+      <h2 class="h2 reveal d1">Before you <em>download.</em></h2>
+    </div>
+    ${faqList(GET_FAQS)}
+  </div>
+</section>
+
+${finalCta("Your next walk <em>pays you back.</em>", "Download Stride, lock your first app, and earn your scrolling one walk at a time.")}
+`;
+  return {
+    path: "/get",
+    file: "get.html",
+    layout: "landing",
+    noindex: true,
+    title: "Stride: Walk to Unlock Your Apps | Free on iPhone",
+    description:
+      "Stride locks distracting apps until you walk. Every 500 steps earns 15 minutes of app time. Free on the App Store for iPhone.",
+    ogImage: "/assets/og/home.png",
+    body,
+  };
+}
