@@ -213,8 +213,8 @@ const TRACKER = `
     var body = JSON.stringify({ api_key: "${POSTHOG_TOKEN}", event: event, distinct_id: id, properties: props, timestamp: new Date().toISOString() });
     var sent = false;
     // A beacon survives the jump to the App Store, which would cancel a normal request.
-    try { sent = navigator.sendBeacon("/ph/i/v0/e/", new Blob([body], { type: "application/json" })); } catch (e) {}
-    if (!sent) { try { fetch("/ph/i/v0/e/", { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" }, body: body }); } catch (e) {} }
+    try { sent = navigator.sendBeacon("/ph/i/v0/e", new Blob([body], { type: "application/json" })); } catch (e) {}
+    if (!sent) { try { fetch("/ph/i/v0/e", { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" }, body: body }); } catch (e) {} }
   }
   send("lp_view", { referrer_host: document.referrer ? new URL(document.referrer).host : "" });
   document.addEventListener("click", function (e) {
