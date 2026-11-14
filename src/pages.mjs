@@ -322,7 +322,7 @@ export function home(blockApps) {
         <p class="plan-sub">Lock every app that pulls you in, or entire categories at once.</p>
         <div class="price-opts">
           <div class="opt"><b>${P.monthly}</b><span>per month</span></div>
-          <div class="opt opt-hi"><i>SAVE 66%</i><b>${P.yearly}</b><span>per year</span></div>
+          <div class="opt opt-hi"><i>SAVE 33%</i><b>${P.yearly}</b><span>per year</span></div>
           <div class="opt"><b>${P.lifetime}</b><span>once, for life</span></div>
         </div>
         <ul class="checks">
@@ -330,7 +330,7 @@ export function home(blockApps) {
           <li><span class="tick">${icon("check")}</span>Lock unlimited apps</li>
           <li><span class="tick">${icon("check")}</span>Lock whole categories: Social, Games, Entertainment and more</li>
         </ul>
-        <p class="plan-fine">US prices; other regions may vary. Billed through your Apple ID. Subscriptions renew automatically unless cancelled at least 24 hours before the period ends. “Save 66%” compares the yearly plan with 12 months of the monthly plan.</p>
+        <p class="plan-fine">US prices; other regions may vary. Billed through your Apple ID. Subscriptions renew automatically unless cancelled at least 24 hours before the period ends. “Save 33%” compares the yearly plan with 12 months of the monthly plan.</p>
       </article>
     </div>
   </div>

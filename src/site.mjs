@@ -8,9 +8,9 @@ export const SITE = {
   appStore: "https://apps.apple.com/app/id6767678750",
   email: "advantageyash@gmail.com",
   minIOS: "17.4",
-  // Verified on the US App Store listing, 2026-10-09.
-  prices: { monthly: "$4.99", yearly: "$19.99", lifetime: "$39.99" },
-  updated: "2026-10-09",
+  // US prices since 2026-11-12 (app repo: aso/pricing/README.md).
+  prices: { monthly: "$4.99", yearly: "$39.99", lifetime: "$99.99" },
+  updated: "2026-11-14",
 };
 
 // Bump when CSS/JS change so returning visitors don't get a stale cached copy.
