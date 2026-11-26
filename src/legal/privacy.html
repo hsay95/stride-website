@@ -1,14 +1,65 @@
 <p>
-  Stride ("we", "us") provides the Stride iOS app ("the app"). This policy explains
+  Stride ("we", "us") provides the Stride apps for iPhone and Android ("the app"). This policy explains
   what data the app uses and how. Stride is designed to keep your data on your device.
 </p>
 <h2>Summary</h2>
 <ul>
   <li>Stride works without an account. If you choose to join <strong>Friends</strong>, we keep a small Friends profile on our server so the friends you approve can see your weekly step total and your daily-goal streak.</li>
-  <li>Apart from those optional Friends figures, your health and Screen Time data stay on your iPhone.</li>
-  <li>Service providers that process limited data for us: RevenueCat (with Apple) to manage purchases, PostHog for anonymous usage analytics, and Supabase to host Friends.</li>
+  <li>Apart from those optional Friends figures, your health and Screen Time data stay on your phone.</li>
+  <li>Service providers that process limited data for us: RevenueCat (with Apple or Google Play) to manage purchases, PostHog for anonymous usage analytics, and Supabase to host Friends.</li>
   <li>Usage analytics are anonymous, contain no health or Screen Time data, and can be turned off in the app.</li>
   <li>We do not sell your data or use it for advertising or tracking.</li>
+</ul>
+<h2>Stride for Android</h2>
+<p>
+  Sections 1 to 12 below describe the iPhone app. The Android app works the same way, with
+  these Android parts in place of Apple's:
+</p>
+<ul>
+  <li>
+    <strong>Health Connect (steps).</strong> With your permission, Stride reads your step count
+    from Health Connect, read-only, including past steps for the current week and while the app
+    is in the background, so your earned minutes stay up to date. Stride never writes to Health
+    Connect, and manually entered steps don't count. Step data is processed on your phone; only
+    the optional Friends figures in section 3 are uploaded. Stride's use of information received
+    from Health Connect follows the
+    <a href="https://support.google.com/googleplay/android-developer/answer/12991134">Health Connect Permissions policy</a>,
+    including its Limited Use requirements: it is never used for advertising, never sold, and
+    never shared except as described here.
+  </li>
+  <li>
+    <strong>Accessibility service (the lock).</strong> Android has no Screen Time framework like
+    Apple's, so Stride uses an Accessibility service to notice when an app you chose to lock comes
+    to the front, and shows Stride's lock screen over it. It looks only at which app is in front.
+    It doesn't read text, typing, or anything else on your screen, and it doesn't perform actions
+    for you. This information stays on your phone and is never sent to us. You turn the service on
+    yourself in Android Settings, after Stride explains it, and can turn it off there anytime.
+  </li>
+  <li>
+    <strong>Usage access (Screen Time tab).</strong> With your permission, Stride reads Android's
+    app usage totals to show your screen time, your most-used apps, and to meter passes by actual
+    use. Stride also reads the list of apps on your phone so you can pick which to lock. Both stay
+    on your phone and are never sent to us or included in analytics.
+  </li>
+  <li>
+    <strong>Friends sign-in.</strong> On Android, Friends uses Sign in with Google. Google gives us
+    an account ID, your name and your email address. Everything else in section 3 applies the same
+    way, including deleting your Friends account in the app or on our
+    <a href="/delete-account">account deletion page</a>.
+  </li>
+  <li>
+    <strong>Notifications.</strong> Friends notifications on Android are delivered by Firebase Cloud
+    Messaging (Google), using a notification token for your device.
+  </li>
+  <li>
+    <strong>Purchases.</strong> Purchases on Android are processed by Google Play, and RevenueCat
+    manages whether you have Stride Pro, as in section 5. See
+    <a href="https://policies.google.com/privacy">Google's privacy policy</a>.
+  </li>
+  <li>
+    <strong>Your choices.</strong> Revoke Health Connect, Usage access or the Accessibility service
+    anytime in Android Settings, and delete all data on your phone by uninstalling Stride.
+  </li>
 </ul>
 <h2>1. Health data (Apple Health / HealthKit)</h2>
 <p>

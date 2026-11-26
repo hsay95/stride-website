@@ -6,7 +6,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, page } from "../src/site.mjs";
 import { BLOCK_APPS } from "../src/block-apps.mjs";
-import { home, blockPage, privacy, terms, support, notFound } from "../src/pages.mjs";
+import { home, blockPage, privacy, terms, deleteAccount, support, notFound } from "../src/pages.mjs";
 import { landing } from "../src/landing.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -17,6 +17,7 @@ const pages = [
   support(),
   privacy(),
   terms(),
+  deleteAccount(),
   notFound(),
 ];
 

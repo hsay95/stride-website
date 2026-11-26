@@ -579,7 +579,10 @@ ${readFileSync(new URL(`./legal/${slug}.html`, import.meta.url), "utf8")}
 });
 
 export const privacy = () =>
-  legal("privacy", "Privacy Policy", "November 6, 2026", "How Stride handles your data: Screen Time and daily step data stay on your iPhone, no account is needed and there are no ads. Optional Friends shares only weekly totals with friends you approve. Usage analytics are anonymous and can be turned off.");
+  legal("privacy", "Privacy Policy", "November 27, 2026", "How Stride handles your data on iPhone and Android: Screen Time and daily step data stay on your phone, no account is needed and there are no ads. Optional Friends shares only weekly totals with friends you approve. Usage analytics are anonymous and can be turned off.");
+
+export const deleteAccount = () =>
+  legal("delete-account", "Delete your Stride account", "November 27, 2026", "How to delete your Stride Friends account and its data, in the app or by email, on iPhone or Android.");
 
 export const terms = () =>
   legal("terms", "Terms of Use", "October 29, 2026", "The terms that apply when you download or use the Stride iOS app, including Stride Pro subscriptions.");
